@@ -64,13 +64,7 @@ var config = {
   
     // Prettify the first train data and add am and pm
 
-    var ampm 
-        if (trainFirst["HH"] >= 12) {
-        ampm = "pm"
-        }
-        else ampm = "am";
-
-    var trainFirstAmPm = moment.unix(trainFirst).format("hh:mm" + ampm);
+    
         
 
 
@@ -84,11 +78,11 @@ var config = {
 
     // First Time (pushed back 1 year to make sure it comes before current time)
     var trainFirstConverted = moment(trainFirst, "HH:mm").subtract(1, "years");
-    console.log(trainFirstConverted);
+    console.log("test");
 
     // Current Time
     var currentTime = moment();
-    console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
+    console.log("CURRENT TIME: " + moment(currentTime).format("HH:mm"));
 
     // Difference between the times
     var diffTime = moment().diff(moment(trainFirstConverted), "minutes");
@@ -104,16 +98,24 @@ var config = {
 
     // Next Train
     var nextTrain = moment().add(tMinutesTillTrain, "minutes");
-    console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
+    console.log("ARRIVAL TIME: " + moment(nextTrain).format("HH:mm"));
   
+    var ampm = "placeholder"
+        if (trainFirst["HHmm"] >= 1200) {
+        ampm = "pm"
+        }
+        else ampm = "am";
+
+    var trainFirstAmPm = moment.unix(trainFirst).format("HH:mm");
+
   
     // Create new row for data
     var newRow = $("<tr>").append(
       $("<td>").text(trainName),
       $("<td>").text(trainDestination),
-      $("<td>").text(trainFirstAmPm),
+      $("<td>").text(trainFirstAmPm + ampm),
       $("<td>").text(trainFrequency),
-      $("<td>").text(moment(nextTrain).format("hh:mm"))
+      $("<td>").text(moment(nextTrain).format("HH:mm") + ampm)
     );
   
     // Append the new row to the table
